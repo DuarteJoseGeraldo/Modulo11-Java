@@ -1,9 +1,11 @@
 package com.example.demo.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.example.demo.models.personData;
 
 @Service
+@Slf4j
 public class m11Service {
     public boolean firstTest(int number) {
         return number >= 10;
@@ -12,29 +14,22 @@ public class m11Service {
     public String printName (personData data){
         return data.getName();
     }
+
+
     public boolean validateCpf (String cpf){
         String rawCpf = cpf.replaceAll("[.\\-]", "");
 
-        String verifierResult = "" + firstVerifier(rawCpf, 10, 0) + secondVerifier(rawCpf, 11, 0);
+        String verifierResult = "" + checkVerifier(rawCpf.substring(0,9), 0) + checkVerifier(rawCpf.substring(0,10), 0) ;
+
         return rawCpf.substring(9).equals(verifierResult);
     }
 
-    private int firstVerifier (String cpf, int weight, int result){
-        if(cpf.length() == 2){
+    private int checkVerifier (String cpf, int result){
+        if(cpf.isEmpty()){
             return (result * 10) % 11;
         }else{
-            int newResult = (Integer.parseInt(cpf.charAt(0) + "") * weight) + result;
-            return firstVerifier(cpf.substring(1), weight-1, newResult );
+            int newResult = (Integer.parseInt(cpf.charAt(0) + "") * (cpf.length()+1)) + result;
+            return checkVerifier(cpf.substring(1), newResult );
         }
     }
-
-    private int secondVerifier (String cpf, int weight, int result){
-        if(cpf.length() == 1){
-            return (result * 10) % 11;
-        }else{
-            int newResult = (Integer.parseInt(cpf.charAt(0) + "") * weight) + result;
-            return secondVerifier(cpf.substring(1), weight-1, newResult );
-        }
-    }
-
 }
