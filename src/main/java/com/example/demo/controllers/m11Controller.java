@@ -27,5 +27,4 @@ public class m11Controller {
     public boolean validateCpf(@RequestBody personData infos){
         return serviceTest.validateCpf(infos.getCpf());
     }
-
 }
