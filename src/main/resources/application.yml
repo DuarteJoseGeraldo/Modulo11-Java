@@ -2,3 +2,5 @@ logging:
   level:
     com.exemplo.demo: "INFO"
     org.springframework: "INFO"
+server:
+  port: 7090
