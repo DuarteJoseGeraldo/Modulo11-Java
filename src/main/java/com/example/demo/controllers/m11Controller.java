@@ -7,24 +7,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class m11Controller {
-    private final m11Service serviceTest;
+    private final m11Service service;
 
     @Autowired
     public m11Controller(m11Service fTest){
-        this.serviceTest = fTest;
+        this.service = fTest;
     }
 
     @GetMapping("/test")
     public boolean checkNumber(@RequestParam int number) {
-        return serviceTest.firstTest(number);
+        return service.firstTest(number);
     }
 
     @PostMapping("/name")
     public String printName(@RequestBody personData infos){
-        return serviceTest.printName(infos);
+        return service.printName(infos);
     }
     @PostMapping("/cpf")
     public boolean validateCpf(@RequestBody personData infos){
-        return serviceTest.validateCpf(infos.getCpf());
+        return service.validateCpf(infos.getCpf());
     }
 }
